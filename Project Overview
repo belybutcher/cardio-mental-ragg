@@ -1,0 +1,68 @@
+
+
+## Project Overview
+This project provides a robust, production-ready Retrieval-Augmented Generation (RAG) backend API built with **FastAPI**, **LangChain**, **OpenAI**, and **Supabase**. It specializes in cardiovascular and mental health support, ensuring accurate medical assistance while safeguarding against hallucinations by referencing verified documents stored in Supabase via `pgvector`.
+
+## Features
+- **FastAPI Backend:** High-performance asynchronous API endpoints for chat interactions.
+- **Supabase Integration:** 
+  - Vector database storage (`pgvector`) for medical documents and embeddings (`match_documents` RPC function).
+  - Persistent `chat_history` logging mapped to user identifiers (`user_id`).
+- **LangChain LCEL RAG Chain:** Modern Runnable architecture connecting embeddings, retriever, medical system prompt, and GPT-4o.
+- **Safety Safeguards:** Strict adherence to context-only answers with fallback notices for healthcare professional consultation.
+
+---
+
+## Setup and Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/ahmedissamramadan/team18-rag-backend.git
+   cd team18-rag-backend
+   ```
+
+2. **Create and activate a virtual environment:**
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+3. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+---
+
+## Required Environment Variables
+
+Create a `.env` file in the root directory with the following variables:
+
+```env
+SUPABASE_URL=https://cyrsjfruayuiskrgwswc.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key_here
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
+---
+
+## Running the Application Locally
+
+Start the FastAPI development server:
+
+```bash
+python main.py
+```
+
+The server will start at `http://0.0.0.0:8000`. You can access the interactive Swagger documentation at `http://localhost:8000/docs`.
+
+### API Endpoint Example (`/chat`)
+- **Method:** `POST`
+- **URL:** `/chat`
+- **Body:**
+  ```json
+  {
+    "user_id": "user_123",
+    "question": "What are the common lifestyle adjustments for managing hypertension?"
+  }
+  ```
